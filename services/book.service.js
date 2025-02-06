@@ -1,7 +1,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
-const BOOK_KEY = 'BookDB'
+const BOOK_KEY = 'bookDB'
 _createBooks()
 
 export const bookService = {
@@ -45,13 +45,13 @@ function save(book) {
     }
 }
 
-function getEmptyBook(title = '' , price = '' ,currencyCode) {
+function getEmptyBook(title = '' , price = '') {
     return {
         title,
         listPrice:
         {
             amount: price,
-            currencyCode,
+            currencyCode: 'ILS',
             isOnSale: false
         }
     }
@@ -65,16 +65,16 @@ function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
         books = [
-            _createBook('metus hendrerit', 109, 'EUR'),
-            _createBook('morbi', 44, 'EUR'),
-            _createBook('suat viverra venenatis', 108, 'ILS'),
+            _createBook('metus hendrerit', 109),
+            _createBook('morbi', 44),
+            _createBook('suat viverra venenatis', 108),
         ]
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }
 
-function _createBook(title, price ,currencyCode) {
-    const book = getEmptyBook(title, price ,currencyCode)
+function _createBook(title, price) {
+    const book = getEmptyBook(title, price)
     book.id = utilService.makeId()
     return book
 }
