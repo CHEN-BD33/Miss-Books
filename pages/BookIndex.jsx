@@ -29,8 +29,10 @@ export function BookIndex() {
     return (
         <section className="book-index">
             <h1>Book Index!</h1>
-            <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-            <BookList books={books} />
+            <React.Fragment>
+                <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+                <BookList books={books} />
+            </React.Fragment>
         </section>
     )
 }
