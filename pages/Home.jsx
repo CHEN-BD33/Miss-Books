@@ -3,7 +3,7 @@
 export function Home() {
     return (
         <section>
-            <h2></h2>
+            <h1>Welcome to our Bookstore!</h1>
             {/* <UserPreview /> */}
         </section>
     )
