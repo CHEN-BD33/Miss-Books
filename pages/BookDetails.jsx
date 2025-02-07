@@ -22,6 +22,15 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
         return pageCount
     }
 
+    function getPublishDate(publishedDate){
+        const currYear = new Date().getFullYear()
+        let diff = currYear - publishedDate
+
+        if(diff > 10) publishedDate += '- Vintage'
+        else if (diff < 1) publishedDate += '-New'
+        return publishedDate
+    }
+
     if (!book) return 'Loading...'
 
     const {
@@ -32,6 +41,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
         description,
         language,
         pageCount,
+        publishedDate,
         categories,
         listPrice
     } = book
@@ -51,6 +61,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
                     <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
                     <p>Description: {description}</p>
                     <p>Language: {language}</p>
+                    <p>Published: {getPublishDate(publishedDate)}</p>
                     <p>Pages: {getPageCount(pageCount)}</p>
                     <p>Categories: {categories.join(', ')}</p>
                     <h3>Book Price: {listPrice.amount} {listPrice.currencyCode}</h3>
