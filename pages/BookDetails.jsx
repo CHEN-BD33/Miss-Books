@@ -2,7 +2,7 @@ import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
 
-export function BookDetails({onSetSelectedBookId, selectedBookId}) {
+export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
 
     const [book, setBook] = useState(null)
 
@@ -16,13 +16,40 @@ export function BookDetails({onSetSelectedBookId, selectedBookId}) {
     }
 
     if (!book) return 'Loading...'
+
+    const {
+        title,
+        subtitle,
+        thumbnail,
+        authors,
+        description,
+        language,
+        categories,
+        listPrice
+    } = book
+
     return (
         <section className="book-details">
-            <h1>Book Title: {book.title}</h1>
-            <h1>Book Price: {book.listPrice.amount}</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis quae fuga eveniet, quisquam ducimus modi optio in alias accusantium corrupti veritatis commodi tenetur voluptate deserunt nihil quibusdam. Expedita, architecto omnis?</p>
+            <section>
+                <div className='book-title'>Book Title: {title}</div>
+                <div className='book-subtitle'>Book subtitle: {subtitle}</div>
+                <div className="book-thumbnail-container">
+                    <img src={thumbnail} />
+                </div>
+            </section>
+
+            <section>
+                <div className='book-more-info'>
+                    <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
+                    <p>Description: {description}</p>
+                    <p>Language: {language}</p>
+                    <p>Categories: {categories.join(', ')}</p>
+                    <h3>Book Price: {listPrice.amount} {listPrice.currencyCode}</h3>
+                </div>
+            </section>
             <button onClick={() => onSetSelectedBookId(null)}>Back</button>
         </section>
     )
 }
+
 
