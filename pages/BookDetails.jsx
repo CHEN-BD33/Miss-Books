@@ -15,6 +15,13 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
             .then(book => setBook(book))
     }
 
+    function getPageCount(pageCount) {
+        if (pageCount > 500) pageCount += ' - Long reading'
+        else if (pageCount > 200) pageCount += ' - Decent reading'
+        else if (pageCount < 100) pageCount += ' - Light reading'
+        return pageCount
+    }
+
     if (!book) return 'Loading...'
 
     const {
@@ -24,6 +31,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
         authors,
         description,
         language,
+        pageCount,
         categories,
         listPrice
     } = book
@@ -43,6 +51,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
                     <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
                     <p>Description: {description}</p>
                     <p>Language: {language}</p>
+                    <p>Pages: {getPageCount(pageCount)}</p>
                     <p>Categories: {categories.join(', ')}</p>
                     <h3>Book Price: {listPrice.amount} {listPrice.currencyCode}</h3>
                 </div>
