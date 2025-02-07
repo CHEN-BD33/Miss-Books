@@ -23,18 +23,18 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
         return pageCount
     }
 
-    function getPublishDate(){
+    function getPublishDate() {
         const currYear = new Date().getFullYear()
         let publishedYear = book.publishedDate
         let diff = currYear - publishedYear
 
-        if(diff > 10) publishedYear += '- Vintage'
+        if (diff > 10) publishedYear += '- Vintage'
         else if (diff < 1) publishedYear += '-New'
         return publishedYear
     }
 
     function getPriceClass() {
-        if(book.listPrice.amount > 150) return 'red'
+        if (book.listPrice.amount > 150) return 'red'
         else if (book.listPrice.amount < 20) return 'green'
         return ''
     }
@@ -71,6 +71,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
                     <p>Pages: {getPageCount()}</p>
                     <p>Categories: {categories.join(', ')}</p>
                     <span className={"book-price " + getPriceClass()}>Book Price: {listPrice.amount} {listPrice.currencyCode}</span>
+                    {listPrice.isOnSale && <div className="book-on-sale">On-sale!</div>}
                 </div>
             </section>
             <button onClick={() => onSetSelectedBookId(null)}>Back</button>
