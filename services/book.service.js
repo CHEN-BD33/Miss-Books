@@ -22,7 +22,7 @@ function query(filterBy = {}) {
                 books = books.filter(book => regExp.test(book.title))
             }
             if (filterBy.price) {
-                books = books.filter(book => book.speed >= filterBy.price)
+                books = books.filter(book => book.listPrice.amount >= filterBy.price)
             }
             return books
         })
@@ -33,7 +33,6 @@ function get(bookId) {
 }
 
 function remove(bookId) {
-    // return Promise.reject('Oh No!')
     return storageService.remove(BOOK_KEY, bookId)
 }
 
