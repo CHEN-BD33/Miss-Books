@@ -1,21 +1,9 @@
 import { LongTxt } from "../cmps/LongTxt.jsx"
-
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
 
-export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
-
-    const [book, setBook] = useState(null)
-
-    useEffect(() => {
-        loadBook()
-    }, [])
-
-    function loadBook() {
-        bookService.get(selectedBookId)
-            .then(book => setBook(book))
-    }
+export function BookDetails({ book, onGoBack,onEdit}) {
 
     function getPageCount() {
         let pageCount = book.pageCount
@@ -82,7 +70,8 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
                 <LongTxt txt={description} />
             </section>
 
-            <button onClick={() => onSetSelectedBookId(null)}>Back</button>
+            <button onClick={onGoBack}>Back</button>
+            <button className="go-edit-btn" onClick={onEdit}>Edit</button>
         </section>
     )
 }
