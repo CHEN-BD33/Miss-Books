@@ -1,3 +1,5 @@
+import { LongTxt } from "../cmps/LongTxt.jsx"
+
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
@@ -54,6 +56,7 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
 
     return (
         <section className="book-details">
+
             <section>
                 <div className='book-title'>Book Title: {title}</div>
                 <div className='book-subtitle'>Book subtitle: {subtitle}</div>
@@ -65,7 +68,6 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
             <section>
                 <div className='book-more-info'>
                     <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
-                    <p>Description: {description}</p>
                     <p>Language: {language}</p>
                     <p>Published: {getPublishDate()}</p>
                     <p>Pages: {getPageCount()}</p>
@@ -74,6 +76,12 @@ export function BookDetails({ onSetSelectedBookId, selectedBookId }) {
                     {listPrice.isOnSale && <div className="book-on-sale">On-sale!</div>}
                 </div>
             </section>
+
+            <section>
+                <span className='book-description'>Description: </span>
+                <LongTxt txt={description} />
+            </section>
+
             <button onClick={() => onSetSelectedBookId(null)}>Back</button>
         </section>
     )
