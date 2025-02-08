@@ -25,6 +25,15 @@ function query(filterBy = {}) {
             if (filterBy.price) {
                 books = books.filter(book => book.listPrice.amount >= filterBy.price)
             }
+            if (filterBy.fromYear) {
+                books = books.filter(book => book.publishedDate >= filterBy.fromYear)
+            }
+            if (filterBy.toYear) {
+                books = books.filter(book => book.publishedDate <= filterBy.toYear)
+            }
+            if (filterBy.language) {
+                books = books.filter(book => book.language === filterBy.language)
+            }
             return books
         })
 }
@@ -66,7 +75,13 @@ function save(book) {
 // }
 
 function getDefaultFilter() {
-    return { title: '', price: '' }
+    return {
+        title: '',
+        price: '',
+        fromYear: '',
+        toYear: '',
+        language: ''
+    }
 }
 
 function _createBooks() {
@@ -74,7 +89,7 @@ function _createBooks() {
     if (!booksFromStorage || !booksFromStorage.length) {
         const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
         const books = []
-        
+
         for (let i = 0; i < 20; i++) {
             const book = {
                 id: utilService.makeId(),
@@ -85,7 +100,7 @@ function _createBooks() {
                 description: utilService.makeLorem(20),
                 pageCount: utilService.getRandomIntInclusive(20, 600),
                 categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-                thumbnail: `http://coding-academy.org/books-photos/${i+1}.jpg`,
+                thumbnail: `http://coding-academy.org/books-photos/${i + 1}.jpg`,
                 language: "en",
                 listPrice: {
                     amount: utilService.getRandomIntInclusive(80, 500),
@@ -99,7 +114,7 @@ function _createBooks() {
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }
-  
+
 // function _createBook(title, price) {
 //     const book = getEmptyBook(title, price)
 //     book.id = utilService.makeId()
