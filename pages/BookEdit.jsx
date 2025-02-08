@@ -1,7 +1,5 @@
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
-import { bookService } from "../services/book.service.js"
-
 const { useState } = React
 
 export function BookEdit({ book, onUpdate, onCancelEdit }) {
