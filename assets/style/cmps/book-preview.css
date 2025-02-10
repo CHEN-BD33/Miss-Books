@@ -1,0 +1,28 @@
+.book-preview {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.book-preview .book-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--gray3);
+    background-color: var(--clr2bg);
+}
+
+.book-preview .book-thumbnail {
+    margin-bottom: 10px;
+}
+
+.book-preview .book-author {
+    font-size: 1em;
+    color: var(--gray3);
+    margin-bottom: 5px;
+}
+
+.book-preview .book-price {
+    font-size: 1em;
+    font-weight: bold;
+}

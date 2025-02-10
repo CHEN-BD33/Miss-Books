@@ -5,8 +5,8 @@ export function BookPreview({ book }) {
     return (
         <section className="book-preview">
             <section>
-                <div className="book-title">{book.title}</div>
                 <img src={book.thumbnail} className="book-thumbnail" />
+                <div className="book-title">{book.title}</div>
             </section>
 
             <section>
