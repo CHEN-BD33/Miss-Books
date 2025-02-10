@@ -1,9 +1,15 @@
+.Book-filter {
+    width: fit-content;
+    margin: 0 auto;
+}
+
 
 .filter-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    border-radius: 10px;
     margin-bottom: 20px;
     background-color: rgb(134, 116, 151);
     font-size: 1.1em;
