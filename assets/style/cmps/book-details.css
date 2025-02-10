@@ -1,8 +1,30 @@
+.book-details {
+  padding: 20px;
+}
 
-.green{
-    color: green;
-  }
-  
-  .red{
-    color: red;
-  }
+.book-details .book-title,
+.book-details .book-subtitle,
+.book-details .book-authors,
+.book-details .book-language,
+.book-details .book-published,
+.book-details .book-pages,
+.book-details .book-categories,
+.book-details .book-price,
+.book-details .book-description {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 5px;
+}
+
+.book-details .book-title {
+  font-size: 1.8em;
+}
+
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

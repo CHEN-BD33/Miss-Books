@@ -55,8 +55,7 @@ export function BookIndex() {
 
     return (
         <section className="book-index">
-            <h1>Book Index!</h1>
-
+    
             {!selectedBook && (
                 < React.Fragment >
                     <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />

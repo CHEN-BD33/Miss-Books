@@ -74,7 +74,7 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
 
             <form onSubmit={onSaveBook}>
                 <section>
-                    <div className='book-title-edit'>Book Title:</div>
+                    <div className='book-title'>Book Title:</div>
                     <input name="title" value={bookToEdit.title} onChange={onHandleChange} type="text" id="title" />
                     <div className='book-subtitle'>Book subtitle: {subtitle}</div>
                     <div className="book-thumbnail-container">
@@ -85,10 +85,10 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
                 <section>
                     <div className='book-more-info'>
                         <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
-                        <p>Language: {language}</p>
-                        <p>Published: {getPublishDate()}</p>
-                        <p>Pages: {getPageCount()}</p>
-                        <p>Categories: {categories.join(', ')}</p>
+                        <div className='book-language'>Language: <span>{language}</span></div>
+                    <div className='book-published'>Published: <span>{getPublishDate()}</span></div>
+                    <div className='book-pages'>Pages: <span>{getPageCount()}</span></div>
+                    <div className='book-categories'>Categories: <span>{categories.join(', ')}</span></div>
                         <span className={"book-price " + getPriceClass()}>Book Price:</span>
                         <input name="price" value={bookToEdit.listPrice.amount} onChange={onHandleChange} type="number" id="price" />
                     </div>

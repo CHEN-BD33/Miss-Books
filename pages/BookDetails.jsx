@@ -1,6 +1,6 @@
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
-export function BookDetails({ book, onGoBack,onEdit}) {
+export function BookDetails({ book, onGoBack, onEdit }) {
 
     function getPageCount() {
         let pageCount = book.pageCount
@@ -53,10 +53,10 @@ export function BookDetails({ book, onGoBack,onEdit}) {
             <section>
                 <div className='book-more-info'>
                     <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
-                    <p>Language: {language}</p>
-                    <p>Published: {getPublishDate()}</p>
-                    <p>Pages: {getPageCount()}</p>
-                    <p>Categories: {categories.join(', ')}</p>
+                    <div className='book-language'>Language: <span>{language}</span></div>
+                    <div className='book-published'>Published: <span>{getPublishDate()}</span></div>
+                    <div className='book-pages'>Pages: <span>{getPageCount()}</span></div>
+                    <div className='book-categories'>Categories: <span>{categories.join(', ')}</span></div>
                     <span className={"book-price " + getPriceClass()}>Book Price: {listPrice.amount} {listPrice.currencyCode}</span>
                     {listPrice.isOnSale && <div className="book-on-sale">On-sale!</div>}
                 </div>
