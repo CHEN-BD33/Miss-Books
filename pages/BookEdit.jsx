@@ -1,13 +1,15 @@
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { useParams, Link } = ReactRouterDOM
+const { useParams, Link, useNavigate } = ReactRouterDOM
 
 export function BookEdit() {
-
+    
     const [book, setBook] = useState(null)
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadBook()
@@ -17,7 +19,8 @@ export function BookEdit() {
         bookService.get(params.bookId)
             .then(setBook)
             .catch(err => {
-                console.log('Problem getting book:', err)
+                console.log('Failed to load book:', err)
+                showErrorMsg('Cannot load book')
             })
     }
 
@@ -36,10 +39,13 @@ export function BookEdit() {
         ev.preventDefault()
         bookService.save(book)
             .then(() => {
-                console.log('Book saved successfully')
+                showSuccessMsg('Book saved')
+                navigate('/book')
+
             })
             .catch(err => {
                 console.log('Problem saving book:', err)
+                showErrorMsg('Problem with saving book')
             })
     }
 
