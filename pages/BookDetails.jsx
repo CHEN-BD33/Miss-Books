@@ -1,6 +1,24 @@
+import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
-export function BookDetails({ book, onGoBack, onEdit }) {
+const { useEffect, useState } = React
+const { useParams, Link } = ReactRouterDOM
+
+export function BookDetails() {
+    const [book, setBook] = useState(null)
+    const params = useParams()
+
+    useEffect(() => {
+        loadBook()
+    }, [params.bookId])
+
+    function loadBook() {
+        bookService.get(params.bookId)
+            .then(setBook)
+            .catch(err => {
+                console.log('Problem getting book:', err)
+            })
+    }
 
     function getPageCount() {
         let pageCount = book.pageCount
@@ -67,8 +85,9 @@ export function BookDetails({ book, onGoBack, onEdit }) {
                 <LongTxt txt={description} />
             </section>
 
-            <button onClick={onGoBack}>Back</button>
-            <button className="go-edit-btn" onClick={onEdit}>Edit</button>
+            <button><Link to={`/book/edit/${book.id}`}>Edit</Link></button>
+            {/* <Link to="/book/JYOJa2NpSCq">Next Car</Link> */}
+            <button><Link to="/book">Back</Link></button>
         </section>
     )
 }

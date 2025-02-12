@@ -1,35 +1,46 @@
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { bookService } from "../services/book.service.js"
 
-const { useState } = React
+const { useState, useEffect } = React
+const { useParams, Link } = ReactRouterDOM
 
-export function BookEdit({ book, onUpdate, onCancelEdit }) {
+export function BookEdit() {
 
-    const [bookToEdit, setBookToEdit] = useState(book)
+    const [book, setBook] = useState(null)
+    const params = useParams()
+
+    useEffect(() => {
+        loadBook()
+    }, [params.bookId])
+
+    function loadBook() {
+        bookService.get(params.bookId)
+            .then(setBook)
+            .catch(err => {
+                console.log('Problem getting book:', err)
+            })
+    }
 
     function onHandleChange({ target }) {
         let { value, name: field } = target
 
-        switch (field) {
-            case 'title':
-                value = target.value || bookToEdit.title
-                break
-            case 'price':
-                value = +target.value || bookToEdit.listPrice.amount
-                break
-        }
-
         if (field === 'price') {
-            setBookToEdit((prevBook) => ({ ...prevBook, listPrice: { ...book.listPrice, amount: value } }))
+            setBook((prevBook) => ({ ...prevBook, listPrice: { ...book.listPrice, amount: +value } }))
         } else {
-            setBookToEdit((prevBook) => ({ ...prevBook, [field]: value }))
+            setBook((prevBook) => ({ ...prevBook, [field]: value }))
         }
     }
 
 
     function onSaveBook(ev) {
         ev.preventDefault()
-
-        onUpdate(bookToEdit)
+        bookService.save(book)
+            .then(() => {
+                console.log('Book saved successfully')
+            })
+            .catch(err => {
+                console.log('Problem saving book:', err)
+            })
     }
 
     function getPageCount() {
@@ -75,7 +86,7 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
             <form onSubmit={onSaveBook}>
                 <section>
                     <div className='book-title'>Book Title:</div>
-                    <input name="title" value={bookToEdit.title} onChange={onHandleChange} type="text" id="title" />
+                    <input name="title" value={title} onChange={onHandleChange} type="text" id="title" />
                     <div className='book-subtitle'>Book subtitle: {subtitle}</div>
                     <div className="book-thumbnail-container">
                         <img src={thumbnail} />
@@ -86,18 +97,18 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
                     <div className='book-more-info'>
                         <div className='book-authors'>Authors: <span>{authors.join(',')}</span></div>
                         <div className='book-language'>Language: <span>{language}</span></div>
-                    <div className='book-published'>Published: <span>{getPublishDate()}</span></div>
-                    <div className='book-pages'>Pages: <span>{getPageCount()}</span></div>
-                    <div className='book-categories'>Categories: <span>{categories.join(', ')}</span></div>
+                        <div className='book-published'>Published: <span>{getPublishDate()}</span></div>
+                        <div className='book-pages'>Pages: <span>{getPageCount()}</span></div>
+                        <div className='book-categories'>Categories: <span>{categories.join(', ')}</span></div>
                         <span className={"book-price " + getPriceClass()}>Book Price:</span>
-                        <input name="price" value={bookToEdit.listPrice.amount} onChange={onHandleChange} type="number" id="price" />
+                        <input name="price" value={listPrice.amount} onChange={onHandleChange} type="number" id="price" />
                     </div>
                 </section>
             </form>
 
             <div className='book-edit-actions-container'>
                 <button className='save-edit-btn' onClick={onSaveBook}>Save ✔</button>
-                <button className='cancel-edit-btn' onClick={onCancelEdit}>Cancel ✖</button>
+                <button className='cancel-edit-btn'> <Link to="/book">Cancel ✖</Link></button>
             </div>
 
 

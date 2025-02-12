@@ -10,7 +10,7 @@ export const bookService = {
     get,
     remove,
     save,
-    // getEmptyBook,
+    getEmptyBook,
     getDefaultFilter,
 }
 
@@ -54,25 +54,25 @@ function save(book) {
     }
 }
 
-// function getEmptyBook() {
-//     return {
-//         title: '',
-//         subtitle: '', 
-//         authors: [], 
-//         publishedDate: null,
-//         description: '',
-//         pageCount: 0,
-//         categories: [],
-//         thumbnail: '',
-//         language: '',
-//         listPrice:
-//         {
-//             amount: 0,
-//             currencyCode: 'ILS',
-//             isOnSale: false
-//         }
-//     }
-// }
+function getEmptyBook() {
+    return {
+        title: '',
+        subtitle: '', 
+        authors: [], 
+        publishedDate: null,
+        description: '',
+        pageCount: 0,
+        categories: [],
+        thumbnail: '',
+        language: '',
+        listPrice:
+        {
+            amount: 0,
+            currencyCode: 'ILS',
+            isOnSale: false
+        }
+    }
+}
 
 function getDefaultFilter() {
     return {
@@ -110,7 +110,6 @@ function _createBooks() {
             }
             books.push(book)
         }
-        console.log('books', books)
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }
