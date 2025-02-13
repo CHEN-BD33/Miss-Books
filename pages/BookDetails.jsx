@@ -110,8 +110,12 @@ export function BookDetails() {
             </section>
 
             <button><Link to={`/book/edit/${book.id}`}>Edit</Link></button>
-            {/* <Link to="/book/JYOJa2NpSCq">Next Car</Link> */}
             <button><Link to="/book">Back</Link></button>
+
+            <section>
+                <button><Link to={`/book/${book.prevBookId}`}>Previous Car</Link></button>
+                <button><Link to={`/book/${book.nextBookId}`}>Next Car</Link></button>
+            </section>
 
             <section className='reviews'>
                 <AddReview bookId={book.id} onAddReview={onAddReview} />
