@@ -12,6 +12,8 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    addReview,
+    removeReview,
 }
 
 
@@ -57,8 +59,8 @@ function save(book) {
 function getEmptyBook() {
     return {
         title: '',
-        subtitle: '', 
-        authors: [], 
+        subtitle: '',
+        authors: [],
         publishedDate: null,
         description: '',
         pageCount: 0,
@@ -119,3 +121,21 @@ function _createBooks() {
 //     book.id = utilService.makeId()
 //     return book
 // }
+
+function addReview(bookId, review) {
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.push(review)
+            return save(book)
+        })
+}
+
+function removeReview(bookId, reviewId) {
+    return get(bookId)
+        .then(book => {
+            const idx = book.reviews.findIndex(review => review.id === reviewId)
+            book.reviews.splice(idx, 1)
+            return save(book)
+        })
+}

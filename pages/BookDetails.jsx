@@ -1,5 +1,9 @@
-import { bookService } from "../services/book.service.js"
+import { AddReview } from "../cmps/AddReview.jsx"
 import { LongTxt } from "../cmps/LongTxt.jsx"
+
+import { bookService } from "../services/book.service.js"
+import { showSuccessMsg } from "../services/event-bus.service.js"
+
 
 const { useEffect, useState } = React
 const { useParams, Link } = ReactRouterDOM
@@ -17,6 +21,26 @@ export function BookDetails() {
             .then(setBook)
             .catch(err => {
                 console.log('Problem getting book:', err)
+            })
+    }
+
+    function onAddReview(review) {
+        setBook(prevBook => ({
+            ...prevBook, reviews: [...(prevBook.reviews || []), review]
+        }))
+    }
+
+    function onRemoveReview(reviewId) {
+        bookService.removeReview(book.id, reviewId)
+            .then(() => {
+                setBook(prevBook => ({
+                    ...prevBook, reviews: prevBook.reviews.filter(review => review.id !== reviewId)
+                }))
+                showSuccessMsg('Review removed')
+            })
+            .catch(err => {
+                console.log('Error:', err)
+                showErrorMsg('Cannot remove review')
             })
     }
 
@@ -88,6 +112,24 @@ export function BookDetails() {
             <button><Link to={`/book/edit/${book.id}`}>Edit</Link></button>
             {/* <Link to="/book/JYOJa2NpSCq">Next Car</Link> */}
             <button><Link to="/book">Back</Link></button>
+
+            <section className='reviews'>
+                <AddReview bookId={book.id} onAddReview={onAddReview} />
+
+                {book.reviews && book.reviews.length > 0 && (
+                    <ul className="review-list">
+                        {book.reviews.map(review => (
+                            <li key={review.id}>
+                                <h4>{review.fullname}</h4>
+                                <div>{'⭐'.repeat(+review.rating)}</div>
+                                <p>Read at: {review.readAt}</p>
+                                <button onClick={() => onRemoveReview(review.id)}>Remove</button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+            </section>
         </section>
     )
 }
