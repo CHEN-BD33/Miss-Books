@@ -5,13 +5,9 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState } = React
 
-export function AddReview({ bookId, onAddReview }) {
+export function AddReview({ onSaveBook }) {
 
-    const [reviewToEdit, setReviewToEdit] = useState({
-        fullname: '',
-        rating: '5',
-        readAt: new Date().toISOString().slice(0, 10),
-    })
+    const [reviewToEdit, setReviewToEdit] = useState(bookService.getEmptyBook())
 
     function handleChange({ target }) {
 
@@ -24,20 +20,7 @@ export function AddReview({ bookId, onAddReview }) {
         ev.preventDefault()
 
         const review = { ...reviewToEdit, id: utilService.makeId() }
-
-        bookService.addReview(bookId, review)
-            .then(() => {
-                showSuccessMsg('Review added successfully')
-                onAddReview(review)
-                setReviewToEdit({
-                    fullname: '',
-                    rating: '5',
-                    readAt: new Date().toISOString().slice(0, 10),
-                })
-                    .catch(err => {
-                        showErrorMsg('Review faild to add')
-                    })
-            })
+        onSaveBook(book)
 
     }
 

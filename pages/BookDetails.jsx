@@ -44,6 +44,18 @@ export function BookDetails() {
             })
     }
 
+    function onSaveBook(bookToSave) {
+        bookService.save(bookToSave)
+            .then(() => {
+                showSuccessMsg('Book saved successfully')
+                loadBook() 
+            })
+            .catch(err => {
+                console.log('Error:', err)
+                showErrorMsg('Cannot save book')
+            })
+    }
+
     function getPageCount() {
         let pageCount = book.pageCount
         if (pageCount > 500) pageCount += ' - Long reading'
@@ -118,7 +130,7 @@ export function BookDetails() {
             </section>
 
             <section className='reviews'>
-                <AddReview bookId={book.id} onAddReview={onAddReview} />
+                <AddReview onSaveBook={onSaveBook} />
 
                 {book.reviews && book.reviews.length > 0 && (
                     <ul className="review-list">

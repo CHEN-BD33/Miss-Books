@@ -42,7 +42,7 @@ function query(filterBy = {}) {
 
 function get(bookId) {
     return storageService.get(BOOK_KEY, bookId)
-    .then(_setNextPrevBookId)
+        .then(_setNextPrevBookId)
 }
 
 function remove(bookId) {
@@ -73,6 +73,12 @@ function getEmptyBook() {
             amount: 0,
             currencyCode: 'ILS',
             isOnSale: false
+        },
+        reviews:
+        {
+            fullname: '',
+            rating: '5',
+            readAt: new Date().toISOString().slice(0, 10),
         }
     }
 }
