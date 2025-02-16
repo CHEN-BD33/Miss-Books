@@ -38,11 +38,16 @@ export function BookIndex() {
         setFilterBy({ ...filterBy })
     }
 
+    
 
     if (!books) return 'Loading..'
 
     return (
         <section className="book-index">
+            <div className="add-book">
+               <button><Link to="/book/add">Add New Book</Link></button>
+            </div>
+
                 <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 <BookList books={books} onRemoveBook={onRemoveBook} />
         </section>
