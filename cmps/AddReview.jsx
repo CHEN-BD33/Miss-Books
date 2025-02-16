@@ -1,11 +1,10 @@
 import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
 
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState } = React
 
-export function AddReview({ onSaveBook }) {
+export function AddReview({ onSaveBookReview }) {
 
     const [reviewToEdit, setReviewToEdit] = useState(bookService.getEmptyBook())
 

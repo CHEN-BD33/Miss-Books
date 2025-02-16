@@ -24,12 +24,6 @@ export function BookDetails() {
             })
     }
 
-    function onAddReview(review) {
-        setBook(prevBook => ({
-            ...prevBook, reviews: [...(prevBook.reviews || []), review]
-        }))
-    }
-
     function onRemoveReview(reviewId) {
         bookService.removeReview(book.id, reviewId)
             .then(() => {
@@ -125,8 +119,8 @@ export function BookDetails() {
             <button><Link to="/book">Back</Link></button>
 
             <section>
-                <button><Link to={`/book/${book.prevBookId}`}>Previous Car</Link></button>
-                <button><Link to={`/book/${book.nextBookId}`}>Next Car</Link></button>
+                <button><Link to={`/book/${book.prevBookId}`}>← Previous Book</Link></button>
+                <button><Link to={`/book/${book.nextBookId}`}>Next Book →</Link></button>
             </section>
 
             <section className='reviews'>
